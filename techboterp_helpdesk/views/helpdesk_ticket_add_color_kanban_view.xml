@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="helpdesk_ticket_view_kanban_inherit" model="ir.ui.view">
+        <field name="name">helpdesk.ticket.kanban.inherit</field>
+        <field name="model">helpdesk.ticket</field>
+        <field name="inherit_id" ref="helpdesk.helpdesk_ticket_view_kanban"/>
+        <field name="arch" type="xml">
+            <data>
+                <xpath expr="//t[@t-name='kanban-box']" position="replace">
+                    <t t-name="kanban-box">
+                        <div t-attf-class="#{!selection_mode ? kanban_color(record.color.raw_value) : ''} oe_kanban_global_click">
+                            <div t-attf-class="#{kanban_color(record.color.raw_value)}">
+                                <span class="oe_kanban_color_help"
+                                      t-attf-title="In #{kanban_getcolorname(record.color.raw_value)}" role="img"
+                                      t-attf-aria-label="In #{kanban_getcolorname(record.color.raw_value)}"/>
+                                <div class="o_dropdown_kanban dropdown">
+                                    <a class="dropdown-toggle o-no-caret btn" role="button" data-toggle="dropdown"
+                                       href="#" aria-label="Dropdown menu" title="Dropdown menu">
+                                        <span class="fa fa-ellipsis-v"/>
+                                    </a>
+                                    <div class="dropdown-menu" role="menu">
+                                        <t t-if="widget.editable">
+                                            <a type="edit" class="dropdown-item" role="menuitem">Edit</a>
+                                        </t>
+                                        <t t-if="widget.deletable">
+                                            <a type="delete" class="dropdown-item" role="menuitem">Delete</a>
+                                        </t>
+                                        <a name="toggle_active" type="object" class="dropdown-item" role="menuitem"
+                                           t-if="! record.active.value">Restore
+                                        </a>
+                                        <ul class="oe_kanban_colorpicker" data-field="color"/>
+                                    </div>
+                                </div>
+                                <div class="oe_kanban_content">
+                                    <div>
+                                        <strong>
+                                            <field name="name"/>
+                                            (#<field name="id"/>)
+                                        </strong>
+                                    </div>
+                                    <div>
+                                        <field name="commercial_partner_id"/>
+                                    </div>
+                                    <div>
+                                        <field name="ticket_type_id"/>
+                                    </div>
+                                    <div>
+                                        <field name="tag_ids" widget="many2many_tags"
+                                               options="{'color_field': 'color'}"/>
+                                    </div>
+                                    <field name="use_sla" invisible="1"/>
+
+                                    <div>
+                                        <!--  Deadline Date:-->
+                                        <field name="sla_deadline" widget="datetime"/>
+                                        <!--     remaining_hours widget=remaining_days-->
+                                    </div>
+
+                                    <div>
+                                        <field name="non_sla_dead_line"
+                                               attrs="{'invisible': [('sla_deadline','!=', False)]}"/>
+                                    </div>
+
+                                    <div invisible="1">
+                                        <!-- Ticket Closed Date :-->
+                                        Closed Date:<field name="completed_on"  force_save="1"/>
+                                    </div>
+
+                                    <div class="o_kanban_record_bottom">
+                                        <div class="oe_kanban_bottom_left">
+                                            <field name="priority" widget="priority"/>
+                                            <field name="activity_ids" widget="kanban_activity"/>
+                                            <b t-if="record.use_rating.raw_value and record.rating_ids.raw_value.length">
+                                                <span style="font-weight:bold;"
+                                                      class="fa fa-fw mt4 fa-smile-o text-success"
+                                                      t-if="record.rating_last_value.value == 5"
+                                                      title="Latest Rating: Satisfied" role="img"
+                                                      aria-label="Happy face"/>
+                                                <span style="font-weight:bold;"
+                                                      class="fa fa-fw mt4 fa-meh-o text-warning"
+                                                      t-if="record.rating_last_value.value == 3"
+                                                      title="Latest Rating: Okay" role="img" aria-label="Neutral face"/>
+                                                <span style="font-weight:bold;"
+                                                      class="fa fa-fw mt4 fa-frown-o text-danger"
+                                                      t-if="record.rating_last_value.value == 1"
+                                                      title="Latest Rating: Dissatisfied" role="img"
+                                                      aria-label="Sad face"/>
+                                            </b>
+                                        </div>
+                                        <div class="oe_kanban_bottom_right">
+                                            <field name="kanban_state" widget="state_selection"
+                                                   groups="base.group_user"/>
+                                            <field name="user_id" widget="many2one_avatar_user"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="oe_clear"></div>
+                            </div>
+                        </div>
+                    </t>
+                </xpath>
+            </data>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!--        SLA and Non SLA Over due PDF Report-->
+        <record id="action_report_helpdesk_ticket_timeover" model="ir.actions.report">
+            <field name="name">Overdue Ticket PDF Report</field>
+            <field name="model">helpdesk.ticket</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">techboterp_scheduled_action.report_helpdesk_ticket</field>
+            <field name="report_file">techboterp_scheduled_action.report_helpdesk_ticket</field>
+            <field name="binding_model_id" ref="model_helpdesk_ticket_report_wizard"/>
+            <field name="binding_type">report</field>
+        </record>
+
+        <!-- SLA and Non SLA Overdue Excel Report-->
+        <record id="action_report_helpdesk_ticket_timeover_xlsx" model="ir.actions.report">
+            <field name="name">Overdue Ticket Report</field>
+            <field name="model">helpdesk.ticket.report.wizard</field>
+            <field name="report_type">xlsx</field>
+            <field name="report_name">techboterp_scheduled_action.report_helpdesk_ticket_xlsx</field>
+            <field name="report_file">techboterp_scheduled_action.report_helpdesk_ticket_xlsx</field>
+            <field name="binding_type">report</field>
+        </record>
+
+        <!--      Helpdesk Team/ User wise Ticket Report -->
+        <record id="action_report_helpdesk_team_ticket" model="ir.actions.report">
+            <field name="name">Team Ticket Report</field>
+            <field name="model">helpdesk.ticket</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">techboterp_scheduled_action.report_helpdesk_team_ticket</field>
+            <field name="report_file">techboterp_scheduled_action.report_helpdesk_team_ticket</field>
+            <field name="binding_model_id" ref="model_helpdesk_team_ticket_report_wizard"/>
+            <field name="binding_type">report</field>
+        </record>
+
+        <!-- Helpdesk Team Ticket Excel Report-->
+        <record id="action_report_helpdesk_team_ticket_xlsx" model="ir.actions.report">
+            <field name="name">Team Ticket Report</field>
+<!--            <field name="model">helpdesk.ticket</field>-->
+            <field name="model">helpdesk.team.ticket.report.wizard</field>
+            <field name="report_type">xlsx</field>
+            <field name="report_name">techboterp_scheduled_action.report_team_ticket_xlsx</field>
+            <field name="report_file">techboterp_scheduled_action.report_team_ticket_xlsx</field>
+            <field name="binding_type">report</field>
+        </record>
+
+    </data>
+</odoo>

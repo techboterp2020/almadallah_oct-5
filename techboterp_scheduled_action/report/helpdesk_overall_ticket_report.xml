@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!--        Over all Ticket Report   -->
+        <record id="action_report_helpdesk_overall_ticket" model="ir.actions.report">
+            <field name="name">Ticket Over All Report</field>
+            <field name="model">helpdesk.ticket</field>
+            <field name="report_type">qweb-pdf</field>
+            <field name="report_name">techboterp_scheduled_action.report_helpdesk_all_ticket</field>
+            <field name="report_file">techboterp_scheduled_action.report_helpdesk_all_ticket</field>
+            <field name="binding_model_id" ref="model_helpdesk_overall_ticket_report_wizard"/>
+            <field name="binding_type">report</field>
+        </record>
+
+         <!-- Helpdesk Over  All Ticket Excel Report-->
+        <record id="action_report_helpdesk_overall_ticket_xlsx" model="ir.actions.report">
+            <field name="name">Overall Ticket Report</field>
+            <field name="model">helpdesk.overall.ticket.report.wizard</field>
+<!--            <field name="model">helpdesk.ticket</field>-->
+            <field name="report_type">xlsx</field>
+            <field name="report_name">techboterp_scheduled_action.report_overall_ticket_xlsx</field>
+            <field name="report_file">techboterp_scheduled_action.report_overall_ticket_xlsx</field>
+            <field name="binding_type">report</field>
+        </record>
+
+
+    </data>
+</odoo>

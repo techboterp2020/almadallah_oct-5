@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!--  Inherit Product variant  Form View to Modify it  -->
+    <record id="helpdesk_ticket__view_form_inher" model="ir.ui.view">
+        <field name="name">helpdesk.ticket.view.form</field>
+        <field name="model">helpdesk.ticket</field>
+        <field name="inherit_id" ref="helpdesk.helpdesk_ticket_view_form"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//form/sheet/group/group[1]/field[@name='tag_ids']" position="after">
+                <separator colspan="2" string="Target" class="mt32"/>
+                <label for="time" string="In" attrs="{'invisible': [('sla_deadline','!=', False)]}"/>
+                <div class="o_row" attrs="{'invisible': [('sla_deadline','!=', False)]}">
+                    <field name="time" widget="float_time"/>
+                    <span class="o_field_widget o_readonly_modifier">Working Hours</span>
+                </div>
+
+                <field name="non_sla_dead_line" attrs="{'invisible': [('sla_deadline','!=', False)]}"/>
+                <field name="ticket_overdue" invisible="1"/>
+                <!--  New field based on TICKET : Created date and Completed DATE-->
+                <field name="created_on" readonly="1" invisible="1"/>
+                <field name="completed_on" readonly="1" invisible="1"/>
+                <field name="closed_ticket_time_in_hour" invisible="1" widget="float_time"
+                       attrs="{'invisible': [('completed_on', '=', False)]}"/>
+            </xpath>
+
+            <xpath expr="//form/sheet/group/group[1]/field[@name='sla_deadline']" position="attributes">
+                <attribute name="widget">datetime</attribute>
+            </xpath>
+
+        </field>
+    </record>
+
+    <!--Inherit Product tree view and add new filed like start date and End Date-->
+    <record id="helpdesk_ticket_tree_view_inher" model="ir.ui.view">
+        <field name="name">helpdesk.ticket.view.treer</field>
+        <field name="model">helpdesk.ticket</field>
+        <field name="inherit_id" ref="helpdesk.helpdesk_tickets_view_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//tree/field[@name='stage_id']" position="after">
+                <field name="time" optional="hide"/>
+                <field name="non_sla_dead_line" attrs="{'invisible': [('sla_deadline','!=', False)]}"/>
+                <field name="ticket_overdue" optional="hide" force_save="1"/>
+                <!--  New Field Added Based on Created date and Completed Date and Calculate the Total working Time -->
+                <field name="created_on" optional="hide"/>
+                <field name="completed_on" force_save="1" optional="hide"/>
+                <field name="closed_ticket_time_in_hour" optional="hide" sum="Total Working Time" widget="float_time"
+                       decoration-bf="1" modifiers="{&quot;readonly&quot;: true}"/>
+            </xpath>
+
+            <!--    Method to change SLA deadline widget -->
+            <xpath expr="//tree/field[@name='sla_deadline']" position="attributes">
+                <attribute name="widget">datetime</attribute>
+            </xpath>
+
+            <!--  Method to Change List/ Tree view color based on SLA or Non SLA deadlines overdue -->
+            <xpath expr="//tree" position="attributes">
+                <attribute name="decoration-danger">ticket_overdue</attribute>
+            </xpath>
+
+        </field>
+    </record>
+
+    <menuitem id="helpdesk.helpdesk_menu_team_dashboard" action="helpdesk.helpdesk_team_dashboard_action_main"
+        sequence="10" parent="helpdesk.menu_helpdesk_root" name="Overview"
+        groups="helpdesk.group_helpdesk_user"/>
+</odoo>
+
+

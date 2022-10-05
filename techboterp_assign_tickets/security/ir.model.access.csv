@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_assign_user_wizard,assign.user.wiz,model_assign_user_wiz,,1,1,1,1

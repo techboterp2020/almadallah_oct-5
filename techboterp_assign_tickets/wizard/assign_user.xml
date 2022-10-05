@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="assign_user_form_wzd" model="ir.ui.view">
+            <field name="name">assign.user.wiz.form</field>
+            <field name="model">assign.user.wiz</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                             <field name="user_id" domain="[('user_available', '=', True)]"/>
+                        </group>
+                    </sheet>
+                    <footer>
+                          <button class="oe_highlight" string="Assign"
+                                name="assign_user_tickets" type="object"/>
+                        <button string="Cancel" class="btn-default" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_assign_user_wiz" model="ir.actions.act_window">
+            <field name="name">Assign User</field>
+            <field name="res_model">assign.user.wiz</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="assign_user_form_wzd"/>
+            <field name="target">new</field>
+        </record>
+    </data>
+</odoo>

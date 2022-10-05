@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <template id="report_helpdesk_team_ticket">
+        <t t-call="web.html_container">
+            <t t-call="web.external_layout">
+                <div class="page">
+                    <div class="text-center">
+                        <h2 style="color:#915e4c;">
+                            <b>Helpdesk Team Tickets Reports</b>
+                        </h2>
+                        <center>
+                            <table name="master" width="90%">
+                                <colgroup>
+                                    <col width='25%'/>
+                                    <col width='25%'/>
+                                    <col width='25%'/>
+                                    <col width='25%'/>
+                                </colgroup>
+                                <tbody class="invoice_tbody">
+                                    <tr>
+                                        <td style="color:#915e4c;">
+                                            <t t-if="from_date">
+                                                <strong>Period From</strong>
+                                            </t>
+                                        </td>
+                                        <td>
+                                            <t t-if="from_date">
+                                                :
+                                                <span t-esc="from_date" t-options='{"widget": "datetime"}'/>
+                                            </t>
+                                        </td>
+                                        <td style="color:#915e4c;">
+                                            <t t-if="to_date">
+                                                <strong>Period To</strong>
+                                            </t>
+                                        </td>
+                                        <td>
+                                            <t t-if="to_date">:
+                                                <span t-esc="to_date" t-options='{"widget": "datetime"}'/>
+                                            </t>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <br/>
+                            <table class="table table-striped">
+                                <thead style="border-top: 1px solid #915e4c;border-left: 1px solid black;border-right: 1px solid black;border-bottom:1px solid #000000;">
+                                    <tr>
+                                        <th style="width:7%;color:white;background-color: #915e4c;border-top: 1px solid black;border-left: 1px solid black;border-right: 1px solid black;border-bottom:1px solid #000000;"
+                                            class="text-center">Sl.No
+                                        </th>
+
+                                        <th style="color:white;background-color: #915e4c;border-top: 1px solid black;border-left: 1px solid black;border-right: 1px solid black;border-bottom:1px solid #000000;">
+                                            User
+                                        </th>
+                                        <th style="color:white;background-color: #915e4c;border-top: 1px solid black;border-left: 1px solid black;border-right: 1px solid black;border-bottom:1px solid #000000;">
+                                            Total
+                                        </th>
+                                        <th style="color:white;background-color: #915e4c;border-top: 1px solid black;border-left: 1px solid black;border-right: 1px solid black;border-bottom:1px solid #000000;">
+                                            Attended with in TAT
+                                        </th>
+                                        <th style="color:white;background-color: #915e4c;border-top: 1px solid black;border-left: 1px solid black;border-right: 1px solid black;border-bottom:1px solid #000000;">
+                                            TAT Lapsed
+                                        </th>
+                                        <th style="color:white;background-color: #915e4c;border-top: 1px solid black;border-left: 1px solid black;border-right: 1px solid black;border-bottom:1px solid #000000;">
+                                            Serviced (%)
+                                        </th>
+
+                                    </tr>
+                                </thead>
+                                <tbody class="treat_tbody"
+                                       style="border-top: 1px solid black;border-left: 1px solid black;border-right: 1px solid black;border-bottom:1px solid #000000;">
+                                    <t t-set="i" t-value="1"/>
+                                    <tr t-foreach="complete_recs" t-as="ticket"
+                                        style="border-top: 1px solid black;border-left: 1px solid black;border-right: 1px solid black;border-bottom:1px solid #000000;">
+
+                                        <td class="text-center" style="border-top:1px solid #000000;">
+                                            <span t-esc="i"/>
+                                            <t t-set="i" t-value="i+1"/>
+                                        </td>
+
+                                        <td class="text-right" style="border-top:1px solid #000000;">
+                                            <span t-esc="ticket['user']"/>
+                                        </td>
+                                        <td class="text-right" style="border-top:1px solid #000000;">
+                                            <span t-esc="ticket['total']"/>
+                                        </td>
+                                        <td class="text-right" style="border-top:1px solid #000000;">
+                                            <span t-esc="ticket['attended']"/>
+                                        </td>
+                                        <td class="text-right" style="border-top:1px solid #000000;">
+                                            <span t-esc="ticket['lapsed']"/>
+                                        </td>
+                                        <td class="text-right" style="border-top:1px solid #000000;">
+                                            <span t-esc="ticket['service_perc']"/>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </center>
+                    </div>
+                </div>
+            </t>
+        </t>
+    </template>
+
+</odoo>

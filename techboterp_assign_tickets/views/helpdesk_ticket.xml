@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+
+    <record id="helpdesk_ticket_view_tree_inherit" model="ir.ui.view">
+        <field name='name'>helpdesk.ticket.tree.inherit</field>
+        <field name="model">helpdesk.ticket</field>
+        <field name="priority">40</field>
+        <field name="inherit_id" ref="helpdesk.helpdesk_tickets_view_tree"/>
+        <field name="arch" type="xml">
+            <xpath expr="//tree" position="inside">
+                <header>
+                    <button name="%(action_assign_user_wiz)d" string="Assign Ticket" type="action" class="oe_highlight" groups="helpdesk.group_helpdesk_manager"/>
+                </header>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

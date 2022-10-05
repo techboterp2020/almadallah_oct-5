@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!--   RunSchedular for Send Helpdesk Ticket PDF Report   -->
+        <record id="ir_cron_helpdesk_ticket_report" model="ir.cron">
+            <field name="interval_type">minutes</field>
+            <field name="name">Send Helpdesk Overdue Ticket PDF Report</field>
+            <field name="numbercall">-1</field>
+            <field name="priority">5</field>
+            <field name="doall">False</field>
+            <field name="interval_number">15</field>
+            <field name="user_id" ref="base.user_root"/>
+            <field name="model_id" ref="model_helpdesk_ticket"/>
+            <field name="state">code</field>
+            <field name="active">True</field>
+            <field name="code">model._send_help_ticket_report()</field>
+        </record>
+
+        <!--   RunSchedular for Send Helpdesk Daily wise Team Ticket PDF Report  -->
+        <record id="ir_cron_helpdesk_team_daily_wise_ticket_report" model="ir.cron">
+            <field name="name">Send Helpdesk Daily wise Team Ticket PDF Report</field>
+            <field name="model_id" ref="model_helpdesk_ticket"/>
+            <field name="state">code</field>
+            <field name="code">model._send_help_team_ticket_report()</field>
+            <field name="active">True</field>
+            <field name="user_id" ref="base.user_root"/>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="priority">5</field>
+            <field name="doall">False</field>
+        </record>
+
+        <!--   RunSchedular for Send Helpdesk Daily wise Team Ticket PDF Report  -->
+        <record id="ir_cron_helpdesk_overall_daily_ticket_report" model="ir.cron">
+            <field name="name">Send Helpdesk Daily Overall Tickets PDF Report</field>
+            <field name="model_id" ref="model_helpdesk_ticket"/>
+            <field name="state">code</field>
+            <field name="code">model._send_help_overall_ticket_report()</field>
+            <field name="active">True</field>
+            <field name="user_id" ref="base.user_root"/>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <field name="priority">5</field>
+            <field name="doall">False</field>
+        </record>
+    </data>
+</odoo>

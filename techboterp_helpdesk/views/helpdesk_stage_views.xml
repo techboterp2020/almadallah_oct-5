@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!--  Inherit helpdesk Stage  Form View to Modify it  -->
+    <record id="helpdesk_stage_view_form_inher" model="ir.ui.view">
+        <field name="name">helpdesk.stage.view.form</field>
+        <field name="model">helpdesk.stage</field>
+        <field name="inherit_id" ref="helpdesk.helpdesk_stage_view_form"/>
+        <field name="arch" type="xml">
+
+            <xpath expr="//sheet/group/group[2]/field[@name='is_close']" position="before">
+                <field name="is_new_stage"/>
+            </xpath>
+            <xpath expr="//sheet/group/group[1]/field[@name='sequence']" position="after">
+                <field name="is_forward"/>
+                <field name="team_id" widget="Many2one"
+                       attrs="{'invisible': [('is_forward','=', False)], 'required': [('is_forward', '=' ,True)]}"/>
+            </xpath>
+        </field>
+    </record>
+</odoo>
+
+
