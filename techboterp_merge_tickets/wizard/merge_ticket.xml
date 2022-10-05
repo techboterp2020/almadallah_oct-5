@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="merge_ticket_form_wzd" model="ir.ui.view">
+            <field name="name">merge.ticket.wiz.form</field>
+            <field name="model">merge.ticket.wiz</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="partner_id"/>
+                            <field name="ticket_ids"
+                                   domain="[('partner_id', '=', partner_id), ('id', '!=', active_id), ('stage_id.is_close', '!=', True)]"/>
+                        </group>
+                    </sheet>
+                    <footer>
+                        <button class="oe_highlight" string="Merge"
+                                name="merge_tickets" type="object"/>
+                        <button string="Cancel" class="btn-default" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_merge_ticket_wiz" model="ir.actions.act_window">
+            <field name="name">Merge Ticket</field>
+            <field name="res_model">merge.ticket.wiz</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="merge_ticket_form_wzd"/>
+            <field name="target">new</field>
+        </record>
+
+        <record id="helpdesk_ticket_view_form_inherit" model="ir.ui.view">
+            <field name="name">helpdesk.ticket.view.form</field>
+            <field name="model">helpdesk.ticket</field>
+            <field name="inherit_id" ref="helpdesk.helpdesk_ticket_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//header" position="inside">
+                    <button string="Merge Tickets" name="%(action_merge_ticket_wiz)d" class="oe_highlight" type="action"
+                            attrs="{'invisible':[('is_closed','=',True)]}"/>
+                    <!--     removed user group for merge button:   groups="helpdesk.group_helpdesk_manager"-->
+                </xpath>
+            </field>
+        </record>
+    </data>
+
+
+</odoo>

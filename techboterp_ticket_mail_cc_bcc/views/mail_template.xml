@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record model="ir.ui.view" id="email_template_form">
+        <field name="name">email.template.form</field>
+        <field name="model">mail.template</field>
+        <field name="inherit_id" ref="mail.email_template_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form/sheet/notebook/page[@name='email_configuration']/group/field[@name='email_cc']" position="after">
+                <field name="email_cc_ids" widget="many2many_tags"/>
+                <field name="email_bcc_ids" widget="many2many_tags"/>
+            </xpath>
+             <xpath expr="//form/sheet/notebook/page[@name='email_configuration']/group/field[@name='email_cc']" position="attributes">
+                 <attribute name="invisible">1</attribute>
+             </xpath>
+        </field>
+    </record>
+</odoo>

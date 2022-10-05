@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="user_available_form" model="ir.ui.view">
+            <field name="name">user.available.wiz.form</field>
+            <field name="model">user.available.wiz</field>
+            <field name="priority" eval="8"/>
+            <field name="arch" type="xml">
+                <form>
+                    <field name="user_id" invisible="1"/>
+                    <field name="available" invisible="1"/>
+                    <center>
+                        <button class="oe_highlight" string="Accept" aria-label="Available" title="Available"
+                                name="user_available" type="object" attrs="{'invisible': [('available', '!=', False)]}"
+                                groups="helpdesk.group_helpdesk_user,helpdesk.group_helpdesk_manager"/>
+                        <button class="btn-warning" string="Denying" aria-label="Not Available" title="Not Available"
+                                name="user_not_available" type="object"
+                                attrs="{'invisible': [('available', '=', False)]}"
+                                groups="helpdesk.group_helpdesk_user,helpdesk.group_helpdesk_manager"/>
+                        <!-- class="btn-secondary" class="fa fa-7x o_hr_attendance_sign_in_out_icon fa-sign-in btn-secondary" class="fa fa-7x o_hr_attendance_sign_in_out_icon fa-sign-out btn-warning"-->
+                    </center>
+
+
+                    <footer>
+                        <button string="Cancel" class="btn-default" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_user_available_wiz" model="ir.actions.act_window">
+            <field name="name">Attendance Marking</field>
+            <field name="res_model">user.available.wiz</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="user_available_form"/>
+            <field name="target">new</field>
+        </record>
+
+        <menuitem
+                id="menu_helpdesk_accept_denying"
+                name="Accept / Denying"
+                sequence="10"
+                parent="helpdesk.menu_helpdesk_root"
+                action="action_user_available_wiz"
+        />
+    </data>
+</odoo>

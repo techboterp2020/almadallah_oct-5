@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <record id="view_helpdesk_ticket_form_inherit" model="ir.ui.view">
+        <field name="name">helpdesk.ticket.form.inherit</field>
+        <field name="model">helpdesk.ticket</field>
+        <field name="inherit_id" ref="helpdesk.helpdesk_ticket_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//form/sheet/div[@name='button_box']" position="after">
+                <field name="is_merge" invisible="1"/>
+                <field name="is_closed" invisible="1"/>
+                <widget name="web_ribbon" title="Merged" bg_color="bg-info" attrs="{'invisible': [('is_merge', '=', False)]}"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_helpdesk_ticket_tree_inherit" model="ir.ui.view">
+        <field name="name">helpdesk.ticket.tree.inherit</field>
+        <field name="model">helpdesk.ticket</field>
+        <field name="inherit_id" ref="helpdesk.helpdesk_tickets_view_tree"/>
+        <field name="arch" type="xml">
+            <field name="stage_id" position="after">
+                <field name="is_merge" invisible="1"/>
+                <field name="is_closed" invisible="1"/>
+            </field>
+        </field>
+    </record>
+
+</odoo>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates>
+    <t t-extend="ListView.buttons" t-name="AttendenceMarkListView.buttons">
+        <t t-jquery="button.o_list_button_add" t-operation="after">
+            <t t-if="widget.result == false">
+                <button id="button_accept" t-if="widget.modelName == 'helpdesk.ticket'" type="button" class="btn btn-secondary btn-secondary-new o_button_accept_ticket">
+                    Accept
+                </button>
+            </t>
+            <t t-if="widget.result == true">
+                <button id="button_reject" t-if="widget.modelName == 'helpdesk.ticket'" type="button" class="btn btn-secondary btn-secondary-new o_button_deny_ticket">
+                    Deny
+                </button>
+            </t>
+        </t>
+    </t>
+</templates>

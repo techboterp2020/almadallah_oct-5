@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_helpdesk_ticket_wizard,access_helpdesk_ticket_wizard,model_helpdesk_ticket_report_wizard,base.group_user,1,1,1,1
+access_helpdesk_team_ticket_report_wizard,helpdesk.team.ticket.report.wizard,model_helpdesk_team_ticket_report_wizard,base.group_user,1,1,1,1
+access_helpdesk_overall_ticket_report_wizard,helpdesk.overall.ticket.report.wizard,model_helpdesk_overall_ticket_report_wizard,base.group_user,1,1,1,1

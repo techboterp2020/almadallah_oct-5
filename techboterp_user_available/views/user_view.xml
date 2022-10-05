@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_user_form_inherit" model="ir.ui.view">
+        <field name="name">res.users.form.inher</field>
+        <field name="model">res.users</field>
+        <field name="inherit_id" ref="base.view_users_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='tz']" position="after">
+                <field name="user_available" groups="helpdesk.group_helpdesk_user,helpdesk.group_helpdesk_manager"/>
+                <field name="last_availblity_id" groups="helpdesk.group_helpdesk_user,helpdesk.group_helpdesk_manager"
+                       readonly="1"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_helpdesk_ticket_inherit" model="ir.ui.view">
+        <field name="name">helpdesk.ticket.form.inher</field>
+        <field name="model">helpdesk.ticket</field>
+        <field name="inherit_id" ref="helpdesk.helpdesk_ticket_view_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='user_id']" position="attributes">
+                <attribute name="domain">['&amp;','&amp;', ('id', 'in', domain_user_ids), ('share', '=',
+                    False),('user_available', '=', True)]
+                </attribute>
+            </xpath>
+        </field>
+    </record>
+
+    <!--    Added new tree, kanban and search for the user to show user availability-->
+    <record id="res_users_tree_view" model="ir.ui.view">
+        <field name="name">res.users.tree.inherit</field>
+        <field name="model">res.users</field>
+        <field name="arch" type="xml">
+            <tree create="0" edit="0" delete="0">
+                <field name="name"/>
+                <field name="accept_deny" force_save="1" invisible="1"/>
+            </tree>
+        </field>
+    </record>
+
+
+    <record id="view_res_users_kanban_new" model="ir.ui.view">
+        <field name="name">res.users.kanban</field>
+        <field name="model">res.users</field>
+        <field name="arch" type="xml">
+            <kanban class="o_kanban_mobile" create="0">
+                <field name="id"/>
+                <field name="name"/>
+                <field name="active"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div t-attf-class="oe_kanban_global_click">
+                            <div class="o_kanban_image">
+                                <img alt="Avatar"
+                                     t-att-src="kanban_image('res.users', 'avatar_128', record.id.raw_value)"/>
+                            </div>
+                            <div class="oe_kanban_details">
+                                <ul>
+                                    <li class="mb4">
+                                        <strong>
+                                            <field name="name"/>
+                                        </strong>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="view_users_search_new" model="ir.ui.view">
+        <field name="name">res.users.search</field>
+        <field name="model">res.users</field>
+        <field name="arch" type="xml">
+            <search string="Users">
+                <group expand="0" string="Group By">
+                    <filter string="User Availability" name="users_avail" context="{'group_by':'accept_deny'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_res_users_new" model="ir.actions.act_window">
+        <field name="name">Users</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">res.users</field>
+        <field name="view_mode">kanban,tree</field>
+        <field name="view_ids"
+               eval="[(5, 0, 0),
+                      (0, 0, {'view_mode': 'kanban', 'view_id': ref('view_res_users_kanban_new')}),
+                      (0, 0, {'view_mode': 'tree', 'view_id': ref('res_users_tree_view')})
+                          ]"/>
+        <field name="search_view_id" ref="view_users_search_new"/>
+        <field name="context">{'search_default_users_avail':1}</field>
+    </record>
+</odoo>
+
+

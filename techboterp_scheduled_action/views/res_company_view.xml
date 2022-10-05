@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_company_form_helpdesk" model="ir.ui.view">
+        <field name="name">res.company.form.inherit.helpdesk.email</field>
+        <field name="model">res.company</field>
+        <field name="inherit_id" ref="base.view_company_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='favicon']" position="after">
+                <field name="main_admin_email" invisible="1"/>
+                <field name="team_admin_emails" invisible="1"/>
+            </xpath>
+        </field>
+    </record>
+
+</odoo>

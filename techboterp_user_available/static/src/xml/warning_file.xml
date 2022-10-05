@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="redirect_fail_page" xml:space="preserve">
+	<div>
+          <span>Failed</span>
+    </div>
+    <script>
+        setTimeout(function(){
+            window.location.href = '/';
+        }, 1100)
+    </script>
+</templates>
